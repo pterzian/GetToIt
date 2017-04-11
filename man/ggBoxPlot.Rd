@@ -4,12 +4,16 @@
 \alias{ggBoxPlot}
 \title{GetToIt}
 \usage{
-ggBoxPlot(listOflist, newOrder)
+ggBoxPlot(listOflist, newOrder, noNames = FALSE, df = FALSE)
 }
 \arguments{
 \item{listOflist}{A list of lists, possibly named}
 
 \item{newOrder}{An index of the lists in the order you want them to be plot}
+
+\item{noNames}{if no names given they are generated}
+
+\item{df}{Yes, you can give a data-frame...}
 }
 \description{
 A function about ordering boxplot
