@@ -2,7 +2,7 @@
 % Please edit documentation in R/trybox.R
 \name{ggBoxPlot}
 \alias{ggBoxPlot}
-\title{ggBoxPlot}
+\title{GetToIt}
 \usage{
 ggBoxPlot(listOflist, newOrder)
 }
@@ -11,7 +11,8 @@ ggBoxPlot(listOflist, newOrder)
 
 \item{newOrder}{An index of the lists in the order you want them to be plot}
 }
-\details{
+\description{
+A function about ordering boxplot
 plot ggplot2 BoxPlot in the order you want.
 }
 \examples{

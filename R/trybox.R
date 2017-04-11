@@ -1,7 +1,6 @@
-#' ggBoxPlot
+#' GetToIt
 #'
-#'
-#'
+#' A function about ordering boxplot
 #' plot ggplot2 BoxPlot in the order you want.
 #'
 #'
@@ -23,11 +22,11 @@
 
 ggBoxPlot <-function(listOflist, newOrder) {
 
-  boxNames <- names(listOflist)
+  boxNames       <- names(listOflist)
 
   foo = lapply(seq_along(listOflist), function(i) {
 
-    currentBox <- listOflist[[i]]
+    currentBox   <- listOflist[[i]]
 
     ##get p-value from wilcox.test
     if(all(is.na(unlist(currentBox)))){
@@ -35,32 +34,31 @@ ggBoxPlot <-function(listOflist, newOrder) {
     }
     else{
 
-      dfelectro <- data.frame(value = unlist(currentBox[[1]]), stringsAsFactors = FALSE, type = "electro", group = boxNames[i])
-      dfmetel   <- data.frame(value = unlist(currentBox[[2]]), stringsAsFactors = FALSE, type = "metal", group = boxNames[i])
-      dfTot     <- rbind(dfelectro, dfmetel)
+      dfelectro  <- data.frame(value = unlist(currentBox[[1]]), type = "electro", group = boxNames[i], stringsAsFactors = FALSE)
+      dfmetel    <- data.frame(value = unlist(currentBox[[2]]), type = "metal", group = boxNames[i], stringsAsFactors = FALSE)
+      dfTot      <- rbind(dfelectro, dfmetel)
 
       return(dfTot)
     }
   })
-  bigDF <- do.call(rbind, foo)
+
+  bigDF          <- do.call(rbind, foo)
 
 
-tmp   <- factor(bigDF$group, levels = newOrder, ordered = TRUE)
-bigDF <- bigDF[order(tmp),]
+  tmp            <- factor(bigDF$group, levels = newOrder, ordered = TRUE)
+  bigDF          <- bigDF[order(tmp),]
 
-ind   <- apply(bigDF, 1, function(x) all(is.na(x)))
-bigDF <- bigDF[!ind, ]
+  ind            <- apply(bigDF, 1, function(x) all(is.na(x)))
+  bigDF          <- bigDF[!ind, ]
 
-#################################create a new group column with the index to plot
-vec <- length(unique(bigDF$group))
-vecRep <- rep(LETTERS[1:vec], each= length(bigDF$group) / vec)
-bigDF$newGroup <- paste(vecRep, bigDF$group, sep=".")
+  vec            <- length(unique(bigDF$group))
+  vecRep         <- rep(LETTERS[1:vec], each= length(bigDF$group) / vec)
+  bigDF$newGroup <- paste(vecRep, bigDF$group, sep=".")
 
+  ProbesBoxplot  <- ggplot2::ggplot(data= bigDF, ggplot2::aes(x = newGroup, y = value))  +
+                    ggplot2::geom_boxplot((ggplot2::aes(fill=type))) +
+                    ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust = 1))
 
-
-################################# display the plot the plot
-ProbesBoxplot <- ggplot2::ggplot(data= bigDF, ggplot2::aes(x = newGroup, y = value)) + ggplot2::geom_boxplot((ggplot2::aes(fill=type))) + ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 60, hjust = 1))
-
-return(list(ProbesBoxplot, bigDF))
+  return(list(ProbesBoxplot, bigDF))
 
 }
