@@ -21,7 +21,7 @@ magic <- list(list(c(rnorm(20,2,1)), c(rnorm(8,8,1))),
               list(c(rnorm(20,3,1)), c(rnorm(8,7,1))),                   
               list(c(rnorm(20,4,1)), c(rnorm(8,6,1)))) 
 
-#give a name to the magic
+#give a name to the boxplot
 names(magic) <- c(1:length(magic))
 
 #and pick an order
@@ -47,6 +47,6 @@ pander::pandoc.table(head(as.data.frame(p[2]), n = 30))
 
 ### ... to be boxplotted.
 
-```{r}
+```{r,fig.width=8, fig.height=5 , tidy.opts=list(blank=FALSE, width.cutoff=55)}
 p[1]
 ```

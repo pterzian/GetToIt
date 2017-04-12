@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="pandoc">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="PaulEndymion">
+
+<meta name="date" content="2017-04-12">
+
+<title>BoxplottedList</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="BoxplottedList_fichiers/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+
+
+
+<h1 class="title toc-ignore">BoxplottedList</h1>
+<h4 class="author"><em>PaulEndymion</em></h4>
+<h4 class="date"><em>2017-04-12</em></h4>
+
+
+
+<div id="build-and-get-the-result" class="section level3">
+<h3>build and get the result</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(GetToIt)</code></pre></div>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">magic &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="kw">list</span>(<span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>,<span class="dv">2</span>,<span class="dv">1</span>)), <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">8</span>,<span class="dv">8</span>,<span class="dv">1</span>))),
+              <span class="kw">list</span>(<span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>,<span class="dv">3</span>,<span class="dv">1</span>)), <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">8</span>,<span class="dv">7</span>,<span class="dv">1</span>))),                   
+              <span class="kw">list</span>(<span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">20</span>,<span class="dv">4</span>,<span class="dv">1</span>)), <span class="kw">c</span>(<span class="kw">rnorm</span>(<span class="dv">8</span>,<span class="dv">6</span>,<span class="dv">1</span>)))) 
+
+<span class="co">#give a name to the boxplot</span>
+<span class="kw">names</span>(magic) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(magic))
+
+<span class="co">#and pick an order</span>
+order=<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">2</span>)
+
+p &lt;-<span class="st"> </span><span class="kw">ggBoxPlot</span>(magic, order)</code></pre></div>
+</div>
+<div id="the-list" class="section level3">
+<h3>The list …</h3>
+<p>$<code>1</code> $<code>1</code>[[1]][1] 4.0128166 2.2612081 2.4502976
+ 1.4638945 2.4409404 0.9228622 1.9252507 [8] 3.2147430 2.7630813 
+1.5166763 0.7696274 0.8499685 2.8015875 2.1163427 [15] 3.1345675 
+3.4221534 1.7215693 1.9173668 1.1771236 2.6662534</p>
+<p>$<code>1</code>[[2]][1] 9.955980 9.587769 8.344782 10.930836 7.228838 7.624421 6.332824 [8] 5.973444</p>
+<p>$<code>2</code> $<code>2</code>[[1]][1] 2.434714 2.951240 3.616245 
+3.005277 2.960872 3.935590 3.212488 [8] 3.481043 3.691479 1.992092 
+4.081761 4.399074 1.628627 3.212127 [15] 4.934559 3.255620 4.370126 
+3.969206 5.676136 2.476065</p>
+<p>$<code>2</code>[[2]][1] 7.651063 5.742694 7.123501 7.661072 7.846113 6.793080 5.588391 6.893192</p>
+</div>
+<div id="back-as-a-dataframe" class="section level3">
+<h3>… back as a dataframe … :</h3>
+<table style="width:46%;">
+<colgroup>
+<col width="12%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">&nbsp;</th>
+<th align="center">value</th>
+<th align="center">type</th>
+<th align="center">group</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><strong>1</strong></td>
+<td align="center">4.013</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>2</strong></td>
+<td align="center">2.261</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>3</strong></td>
+<td align="center">2.45</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>4</strong></td>
+<td align="center">1.464</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>5</strong></td>
+<td align="center">2.441</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>6</strong></td>
+<td align="center">0.9229</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>7</strong></td>
+<td align="center">1.925</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>8</strong></td>
+<td align="center">3.215</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>9</strong></td>
+<td align="center">2.763</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>10</strong></td>
+<td align="center">1.517</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>11</strong></td>
+<td align="center">0.7696</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>12</strong></td>
+<td align="center">0.85</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>13</strong></td>
+<td align="center">2.802</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>14</strong></td>
+<td align="center">2.116</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>15</strong></td>
+<td align="center">3.135</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>16</strong></td>
+<td align="center">3.422</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>17</strong></td>
+<td align="center">1.722</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>18</strong></td>
+<td align="center">1.917</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>19</strong></td>
+<td align="center">1.177</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>20</strong></td>
+<td align="center">2.666</td>
+<td align="center">electro</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>21</strong></td>
+<td align="center">9.956</td>
+<td align="center">metal</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>22</strong></td>
+<td align="center">9.588</td>
+<td align="center">metal</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>23</strong></td>
+<td align="center">8.345</td>
+<td align="center">metal</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>24</strong></td>
+<td align="center">10.93</td>
+<td align="center">metal</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>25</strong></td>
+<td align="center">7.229</td>
+<td align="center">metal</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>26</strong></td>
+<td align="center">7.624</td>
+<td align="center">metal</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>27</strong></td>
+<td align="center">6.333</td>
+<td align="center">metal</td>
+<td align="center">1</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>28</strong></td>
+<td align="center">5.973</td>
+<td align="center">metal</td>
+<td align="center">1</td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>57</strong></td>
+<td align="center">3.276</td>
+<td align="center">electro</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td align="center"><strong>58</strong></td>
+<td align="center">3.731</td>
+<td align="center">electro</td>
+<td align="center">3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="to-be-boxplotted." class="section level3">
+<h3>… to be boxplotted.</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p[<span class="dv">1</span>]</code></pre></div>
+<pre><code>## [[1]]</code></pre>
+<p><img src="data:image/png;base64,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"><!-- --></p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>
