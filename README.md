@@ -8,7 +8,7 @@ You can install GetToIt from github with:
 
 ```R
 # install.packages("devtools")
-devtools::install_github("NA/NA")
+devtools::install_github("pterzian/GetToIt")
 ```
 
 ## Example
