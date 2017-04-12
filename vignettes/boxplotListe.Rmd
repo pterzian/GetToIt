@@ -2,7 +2,7 @@
 title: "BoxplottedList"
 author: "PaulEndymion"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: rmarkdown::github_document
 vignette: >
   %\VignetteIndexEntry{BoxplottedList}
   %\VignetteEngine{knitr::rmarkdown}
