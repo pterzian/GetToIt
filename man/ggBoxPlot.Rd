@@ -7,7 +7,7 @@
 ggBoxPlot(listOflist, newOrder, noNames = FALSE, df = FALSE)
 }
 \arguments{
-\item{listOflist}{A list of lists, possibly named}
+\item{listOflist}{A list of lists, possibly named. The sub-lists must have 2 vectors of values to be boxplotted, each list must contain the same amount of values for now.}
 
 \item{newOrder}{An index of the lists in the order you want them to be plot}
 
@@ -22,7 +22,7 @@ plot ggplot2 BoxPlot in the order you want.
 \examples{
 magic <- list(list(c(rnorm(20,2,1)), c(rnorm(8,8,1))), list(c(rnorm(20,3,1)), c(rnorm(8,7,1))), list(c(rnorm(20,4,1)), c(rnorm(8,6,1))))
 names(magic) <- c(1:length(magic))
-order= c("2","3", "1")
+order= c(1,3,2)
 p <- ggBoxPlot(magic, order)
 
 }
